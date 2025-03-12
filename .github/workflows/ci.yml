@@ -9,7 +9,7 @@ on:
       - '*'
 
 jobs:
-  test:
+  test-android:
     strategy:
       fail-fast: false
       matrix:
@@ -17,13 +17,19 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
-      - name: "Test Swift Package Locally"
-        if: ${{ matrix.os != 'macos-13' }}
-        run: swift test
       - name: "Test Swift Package on Android"
         uses: skiptools/swift-android-action@main
         with:
-          #swift-version: '6.0.3'
-          #swift-version: '6.1-DEVELOPMENT-SNAPSHOT-2025-03-07-a'
           swift-version: '6.1'
+
+  test-local:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, macos-15]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: "Test Swift Package Locally"
+        run: swift test
 
