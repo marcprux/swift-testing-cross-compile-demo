@@ -1,0 +1,26 @@
+name: swift-testing-cross-compile-demo ci
+on:
+  push:
+    branches:
+      - '*'
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-22.04, macos-13]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: "Test Swift Package Locally"
+        run: swift test
+      - name: "Test Swift Package on Android"
+        uses: skiptools/swift-android-action@main
+        with:
+          swift-version: 6.0.3
+
