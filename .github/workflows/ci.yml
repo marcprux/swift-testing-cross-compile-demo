@@ -20,7 +20,7 @@ jobs:
       - name: "Test Swift Package on Android"
         uses: skiptools/swift-android-action@main
         with:
-          swift-version: 'nightly-6.2'
+          swift-version: 'nightly-6.1'
 
   test-local:
     strategy:
